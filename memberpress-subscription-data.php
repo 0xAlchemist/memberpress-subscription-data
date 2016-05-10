@@ -17,10 +17,9 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
  */
 function mepr_plugin_admin_init() {
   if ( is_admin() ) 
-    wp_register_style( 'mepr_plugin_admin_init', plugins_url( 'styles/mepr-sub-styles.css', __FILE__ ) );
-  }
+    wp_enqueue_style( 'mepr-sub-styles', plugin_dir_url( __FILE__ ) . '/styles/mepr-sub-styles.css' );
 }
-add_action( 'wp_enqueue_scripts', 'mepr_plugin_admin_init' );
+add_action( 'admin_enqueue_scripts', 'mepr_plugin_admin_init' );
 
 //Signup form functions
 function mepr_show_signup_fields() {
