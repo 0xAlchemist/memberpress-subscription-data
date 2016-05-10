@@ -10,9 +10,17 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+
+/**
+ * Enqueue our stylesheet for admin only.
+ */
+function mepr_plugin_admin_init() {
+  if ( is_admin() ) 
+    wp_register_style( 'mepr_plugin_admin_init', plugins_url( 'styles/mepr-sub-styles.css', __FILE__ ) );
+  }
 }
+add_action( 'wp_enqueue_scripts', 'mepr_plugin_admin_init' );
 
 //Signup form functions
 function mepr_show_signup_fields() {
@@ -115,9 +123,7 @@ add_action('mepr-account-subscriptions-th', 'mepr_add_subscriptions_th', 10, 2);
 add_action('mepr-account-subscriptions-td', 'mepr_add_subscriptions_td', 10, 4);
 //Admin Subscriptions table functions
 function mepr_add_admin_subscriptions_cols($cols, $prefix, $lifetime) {
-  $cols[$prefix.'site'] = 'Site';
-  $cols[$prefix.'user'] = 'User';
-  $cols[$prefix.'pass'] = 'Pass';
+  $cols[$prefix.'site'] = 'Site Info';
   return $cols;
 }
 //NOT NEEDED
@@ -136,22 +142,24 @@ function mepr_add_admin_subscriptions_cell($column_name, $rec, $table, $attribut
       foreach($website_fields as $f) {
         if(!$table->lifetime && $rec->ID == $f['sub_id']) {
           $website   = $f['website'];
-          $mepr_user = $f['user'];
-          $mepr_pass = $f['pass'];
+          $mepr_user = $f['wp_admin_user'];
+          $mepr_pass = $f['wp_admin_pass'];
           break;
         }
         elseif($table->lifetime && $rec->ID == $f['txn_id']) {
           $website = $f['website'];
-          $mepr_user = $f['user'];
-          $mepr_pass = $f['pass'];
+          $mepr_user = $f['wp_admin_user'];
+          $mepr_pass = $f['wp_admin_pass'];
           break;
         }
       }
     }
     ?>
-      <td <?php echo $attributes; ?>><?php echo $website; ?></td>
-      <td <?php echo $attributes; ?>><?php echo $mepr_user; ?></td>
-      <td <?php echo $attributes; ?>><?php echo $mepr_pass; ?></td>
+      <td <?php echo $attributes; ?>>
+        <strong><?php echo $website; ?></strong><br>
+        <strong>User: <?php echo $mepr_user; ?></strong><br>
+        <strong>Pass: <?php echo $mepr_pass; ?></strong><br>
+      </td>
     <?php
   }
 }
