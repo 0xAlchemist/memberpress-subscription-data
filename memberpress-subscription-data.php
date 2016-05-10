@@ -41,10 +41,10 @@ function mepr_validate_fields($errors, $user = null) {
   if(!isset($_POST['mepr_website_field']) || empty($_POST['mepr_website_field'])) {
     $errors[] = "You must enter a website URL";
   }
-  if(!isset($_POST['mepr_wp_admin_username']) || empty($_POST['mepr_website_username'])) {
+  if(!isset($_POST['mepr_wp_admin_username']) || empty($_POST['mepr_wp_admin_username'])) {
     $errors[] = "You must enter a WordPress Admin Username";
   }
-  if(!isset($_POST['mepr_wp_admin_password']) || empty($_POST['mepr_website_password'])) {
+  if(!isset($_POST['mepr_wp_admin_password']) || empty($_POST['mepr_wp_admin_password'])) {
     $errors[] = "You must enter a WordPress Admin Password";
   }
   return $errors;
