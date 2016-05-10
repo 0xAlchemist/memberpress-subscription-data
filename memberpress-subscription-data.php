@@ -116,6 +116,8 @@ add_action('mepr-account-subscriptions-td', 'mepr_add_subscriptions_td', 10, 4);
 //Admin Subscriptions table functions
 function mepr_add_admin_subscriptions_cols($cols, $prefix, $lifetime) {
   $cols[$prefix.'site'] = 'Site';
+  $cols[$prefix.'user'] = 'User';
+  $cols[$prefix.'pass'] = 'Pass';
   return $cols;
 }
 //NOT NEEDED
@@ -131,17 +133,23 @@ function mepr_add_admin_subscriptions_cell($column_name, $rec, $table, $attribut
     if($website_fields) {
       foreach($website_fields as $f) {
         if(!$table->lifetime && $rec->ID == $f['sub_id']) {
-          $website = $f['website'];
+          $website   = $f['website'];
+          $mepr_user = $f['user'];
+          $mepr_pass = $f['pass'];
           break;
         }
         elseif($table->lifetime && $rec->ID == $f['txn_id']) {
           $website = $f['website'];
+          $mepr_user = $f['user'];
+          $mepr_pass = $f['pass'];
           break;
         }
       }
     }
     ?>
       <td <?php echo $attributes; ?>><?php echo $website; ?></td>
+      <td <?php echo $attributes; ?>><?php echo $mepr_user; ?></td>
+      <td <?php echo $attributes; ?>><?php echo $mepr_pass; ?></td>
     <?php
   }
 }
