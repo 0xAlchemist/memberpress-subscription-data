@@ -129,6 +129,8 @@ function mepr_add_admin_subscriptions_cell($column_name, $rec, $table, $attribut
   $user = new MeprUser($rec->user_id);
   if(strpos($column_name, '_site') !== false && (int)$user->ID > 0) {
     $website = 'None';
+    $mepr_user = 'None';
+    $mepr_pass = 'None';
     $website_fields = get_user_meta($user->ID, 'mepr_custom_website_fields', true);
     if($website_fields) {
       foreach($website_fields as $f) {
