@@ -1,0 +1,17 @@
+<?php
+/**
+ * Plugin Name: MemberPress Subscription Data
+ * Plugin URI: http://bedheadlabs.com
+ * Description: This plugin adds meta data to Subscriptions and outputs fields on the Account form.
+ * Version: 0.1.0
+ * Author: Eric Breuers
+ * Author URI: http://ericbreuers.com
+ * License: GPL2
+ */
+
+
+
+ function test_output() {
+ 	echo 'This is some test output...';
+ }
+ ?>
